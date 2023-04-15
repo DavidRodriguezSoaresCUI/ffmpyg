@@ -42,14 +42,13 @@ class MediaFile:
             for stream in self.streams.values()
             if all(
                 d_criteria[c] is None
-                or stream.get(c)
-                == (
+                or stream.get(c) == (
                     d_criteria[c].value
                     if isinstance(d_criteria[c], StreamType)
                     else d_criteria[c]
                 )
                 for c in d_criteria.keys()
-            )
+            )  # fmt: skip
         ]
 
     @property

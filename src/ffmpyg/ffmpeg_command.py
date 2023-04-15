@@ -49,13 +49,15 @@ class FfmpegOptions:
         no_stats: bool = False,
         more: Optional[List[str]] = None,
     ) -> None:
+        # fmt: off
         self.cfg = {
-            "loglevel": FfmpegOptions.assertValueInRange("loglevel", loglevel),
-            "hide_banner": FfmpegOptions.assertValueInRange("hide_banner", hide_banner),
-            "y": FfmpegOptions.assertValueInRange("y_overwrite", y_overwrite),
-            "n": FfmpegOptions.assertValueInRange("n_overwrite", n_overwrite),
-            "nostats": FfmpegOptions.assertValueInRange("nostats", no_stats),
+            "loglevel"    : FfmpegOptions.assertValueInRange("loglevel", loglevel),
+            "hide_banner" : FfmpegOptions.assertValueInRange("hide_banner", hide_banner),
+            "y"           : FfmpegOptions.assertValueInRange("y_overwrite", y_overwrite),
+            "n"           : FfmpegOptions.assertValueInRange("n_overwrite", n_overwrite),
+            "nostats"     : FfmpegOptions.assertValueInRange("nostats", no_stats),
         }
+        # fmt: on
         self._more = [] if more is None else more
 
     @classmethod
@@ -249,14 +251,9 @@ def build_ffmpeg_command(
         for in_stream in in_stream_sorted_by_out_stream_idx:
             out_stream = stream_mapping[in_stream]
             input_file_idx = min(
-                filter(
-                    lambda x: x is not None,
-                    [
-                        idx
-                        for idx, i in enumerate(inputs)
-                        if i.contains_stream(in_stream)
-                    ],
-                )
+                idx
+                for idx, i in enumerate(inputs)
+                if i.contains_stream(in_stream) and idx is not None
             )
             stream_command = ["-map", f"{input_file_idx}:{in_stream.idx}"]
             if out_stream.encoder is not None:

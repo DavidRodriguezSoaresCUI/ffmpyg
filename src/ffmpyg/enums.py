@@ -6,10 +6,12 @@ from enum import Enum
 class StreamType(Enum):
     """Represent the 4 types of streams"""
 
+    # fmt: off
     VIDEO = "video"
     AUDIO = "audio"
     SUBTITLE = "subtitle"
     ATTACHMENT = "attachment"
+    # fmt: on
 
     @staticmethod
     def from_ffmpeg_code(code: str) -> "StreamType":
@@ -26,15 +28,17 @@ class StreamType(Enum):
 class FfprobeInfoKey(Enum):
     """Common FFPROBE info keys"""
 
-    INDEX = "index"
-    CODEC = "codec_name"
-    CODEC_LONG = "codec_long_name"
-    DURATION = "duration"
-    IS_DEFAULT = "disposition.default"
-    IS_FORCED = "disposition.forced"
-    STREAM_TYPE = "codec_type"
-    HEIGHT = "height"
-    WIDTH = "width"
-    AVG_FRAMERATE = "avg_frame_rate"
-    LANGUAGE = "tags.language"
-    TITLE = "tags.title"
+    # fmt: off
+    INDEX         = 'index'
+    CODEC         = 'codec_name'
+    CODEC_LONG    = 'codec_long_name'
+    DURATION      = 'duration'
+    IS_DEFAULT    = 'disposition.default'
+    IS_FORCED     = 'disposition.forced'
+    STREAM_TYPE   = 'codec_type'
+    HEIGHT        = 'height'
+    WIDTH         = 'width'
+    AVG_FRAMERATE = 'avg_frame_rate'
+    LANGUAGE      = 'tags.language'
+    TITLE         = 'tags.title'
+    # fmt: on

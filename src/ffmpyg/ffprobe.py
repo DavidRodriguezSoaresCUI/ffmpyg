@@ -16,18 +16,17 @@ def file_stream_info(file_path: Path) -> List[dict]:
     """Returns a list of stream info
     Raises FfprobeExecutionError on runtime error
     """
+    # fmt: off
     cmd = Command(
         [
             "ffprobe",
-            "-loglevel",
-            "error",  # disable most messages
-            "-show_entries",
-            "stream",  # output all streams
-            "-of",
-            "json",  # output format as json
+            "-loglevel", "error",  # disable most messages
+            "-show_entries", "stream",  # output all streams
+            "-of", "json",  # output format as json
             file_path,
         ]
     )
+    # fmt: on
     stdX = cmd.execute()
 
     # Detect errors

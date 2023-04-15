@@ -79,8 +79,8 @@ def random_words(n: int, length: int, used_words: Set[str]) -> List[str]:
     res: List[str] = []
     while len(res) < n:
         word = "".join(
-            random.choice(string.ascii_lowercase) for _ in range(length)
-        )  # nosec B311
+            random.choice(string.ascii_lowercase) for _ in range(length)  # nosec B311
+        )
         if used_words is not None:
             if word in used_words:
                 continue
