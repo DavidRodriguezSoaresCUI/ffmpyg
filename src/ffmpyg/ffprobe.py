@@ -5,8 +5,8 @@ import logging
 from pathlib import Path
 from typing import List
 
-from command import Command
-from exceptions import FfprobeExecutionError
+from .command import Command
+from .exceptions import FfprobeExecutionError
 
 
 LOG = logging.getLogger(__file__)

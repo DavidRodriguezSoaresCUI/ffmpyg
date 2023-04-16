@@ -9,10 +9,10 @@ from collections import namedtuple
 from pathlib import Path
 from typing import List
 
-from enums import FfprobeInfoKey, StreamType
-from ffprobe import file_stream_info
-from stream import FutureStream, Stream
-from utils import assertTrue
+from .enums import FfprobeInfoKey, StreamType
+from .ffprobe import file_stream_info
+from .stream import FutureStream, Stream
+from .utils import assertTrue
 
 StreamCriteria = namedtuple("StreamCriteria", "codec_type codec")
 

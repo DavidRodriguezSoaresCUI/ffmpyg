@@ -7,9 +7,9 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
-from command import Command
-from exceptions import FilterComputationFailed
-from ffile import (
+from .command import Command
+from .exceptions import FilterComputationFailed
+from .ffile import (
     FfprobeInfoKey,
     FutureMediaFile,
     FutureStream,
@@ -18,8 +18,8 @@ from ffile import (
     StreamCriteria,
     StreamType,
 )
-from ffmpeg_encoder import Encoder
-from utils import assertTrue, random_words
+from .ffmpeg_encoder import Encoder
+from .utils import assertTrue, random_words
 
 LOG = logging.getLogger(__file__)
 

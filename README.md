@@ -1,4 +1,4 @@
-# FFMPYG - A FFMPEG interface for Python
+# [FFmpyg](https://github.com/DavidRodriguezSoaresCUI/FFmpyg) - A FFMPEG interface for Python by DavidRodriguezSoaresCUI
 
 A library by me, for my purposes, with goals:
 

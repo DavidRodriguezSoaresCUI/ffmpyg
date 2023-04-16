@@ -9,13 +9,13 @@ from typing import Any, Callable, Dict, List, Optional, Union
 
 import yaml
 
-from encoder_spec import (
+from .encoder_spec import (
     ffmpeg_supported_encoders,
     get_codec_from_encoder,
     read_encoder_parameters,
 )
-from utils import assertTrue, user_input, choose_from_list
-from enums import StreamType
+from .utils import assertTrue, user_input, choose_from_list
+from .enums import StreamType
 
 LOG = logging.getLogger(__file__)
 AVAILABLE_ENCODERS: Dict[Union[str, Path], List[str]] = {}

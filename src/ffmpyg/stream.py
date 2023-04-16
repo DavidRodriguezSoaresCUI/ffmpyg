@@ -2,9 +2,9 @@
 """
 from typing import Any, Optional, Union
 
-from ffmpeg_encoder import Encoder
-from enums import FfprobeInfoKey, StreamType
-from utils import assertTrue, dict_difference, flatten_dict_join
+from .ffmpeg_encoder import Encoder
+from .enums import FfprobeInfoKey, StreamType
+from .utils import assertTrue, dict_difference, flatten_dict_join
 
 
 StreamKeyType = Union[FfprobeInfoKey, StreamType, str]
