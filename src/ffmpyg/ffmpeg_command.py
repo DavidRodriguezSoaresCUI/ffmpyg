@@ -1,3 +1,7 @@
+""" Abstracts away some of the complexities about crafting a complex command
+for FFMPEG, specifically regarding inputs, options, filters, stream mapping,
+encoders and more
+"""
 import logging
 import sys
 from pathlib import Path
@@ -283,10 +287,11 @@ def build_mapping(
     _input: MediaFile, rules: Dict[StreamCriteria, Encoder]
 ) -> Dict[Stream, FutureStream]:
     """Builds stream mapping from encoder rules"""
+
+    def is_default_criteria(criteria: StreamCriteria) -> bool:
+        return criteria.codec is None and criteria.codec_type is None
+
     # Ensure there is no more than one default criteria
-    is_default_criteria = (
-        lambda criteria: criteria.codec is None and criteria.codec_type is None
-    )
     default_rules = [
         criteria for criteria in rules.keys() if is_default_criteria(criteria)
     ]

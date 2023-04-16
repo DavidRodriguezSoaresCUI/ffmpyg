@@ -130,3 +130,6 @@ dmypy.json
 
 # VSCode local settings
 .vscode/settings.json
+
+# FFMPYG static code analysis
+analyze_code.report.txt

@@ -1,8 +1,9 @@
 """ Contains helper methods that aren't related directly to FFMPEG
 """
+import ast
 import random
 import string
-from typing import List, Set
+from typing import Any, Callable, Iterable, List, Optional, Set, Union
 
 
 DOUBLE_QUOTE = '"'
@@ -87,3 +88,77 @@ def random_words(n: int, length: int, used_words: Set[str]) -> List[str]:
             used_words.add(word)
         res.append(word)
     return res
+
+
+def user_input(
+    prompt: str,
+    accepted: Union[Iterable[Union[str, int]], Callable],
+    default: Optional[Any] = None,
+) -> Any:
+    """Asks user for input, with restrictions on accpetable values.
+    `prompt`: appropriate text asking the user for input. Should be straightforward and informative about the kind of data that is asked
+    `accepted`: either a function testing if the user input is acceptable, or an iterable containing all acceptable values
+    `default`: When given, if the user input is not acceptes, default is returned. When abscent, the user will be prompted again until either
+    an accepted value is entered or a KeyboardInterrupt is raised.
+    Note: this is only designed to retrieve values of the following types: str, int, float
+    """
+
+    # Smart prompt reformat
+    if default is not None:
+        prompt += f" [default:{default}] "
+    if prompt[-1] == ":":
+        prompt += " "
+    elif prompt[-2:] != ": ":
+        prompt += ": "
+
+    def acceptable_UI(ui: Any) -> bool:
+        return accepted(ui) if callable(accepted) else (ui in accepted)
+
+    while True:
+        # main loop: ask user until an acceptable input is received, or a KeyboradInterrupt ends the program
+        _user_input = input(prompt)
+
+        # case: raw user input is accepted
+        if acceptable_UI(_user_input):
+            return _user_input
+
+        # case: processed user input is accepted
+        variations = ["int(_user_input)", "float(_user_input)", "_user_input.lower()"]
+        for variation in variations:
+            try:
+                __user_input = ast.literal_eval(variation)
+                if acceptable_UI(__user_input):
+                    return __user_input
+            except (ValueError, AttributeError):
+                pass
+
+        # case: user input is not accepted AND there is a default
+        if default is not None:
+            return default
+
+        # case: user input is not accepted AND there is no default => notify user, ask again
+        print(
+            "Input '%s' is not a valid input. %s",
+            _user_input,
+            (f"Please choose one of : {accepted}" if not callable(accepted) else ""),
+        )
+
+
+def choose_from_list(choices: list, default: Optional[int] = None) -> Any:
+    """Prints then asks the user to choose an item from a list
+    `default`
+    """
+    # Print choices
+    print(
+        "Choices:\n  "
+        + "\n  ".join([f"[{idx}] {choice}" for idx, choice in enumerate(choices)])
+        + "\n"
+    )
+
+    # Get user selection
+    idx: int = user_input(
+        "Selection : ", accepted=list(range(len(choices))), default=default
+    )
+
+    # Return choice
+    return choices[idx]
