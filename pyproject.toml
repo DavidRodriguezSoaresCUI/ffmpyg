@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "FFmpyg_DavidRodriguezSoaresCUI"
-version = "0.1"
+version = "0.0.1"
 authors = [
   { name="DavidRodriguezSoaresCUI", email="fireblaze904+FFmpyg@gmail.com" },
 ]
@@ -27,7 +27,6 @@ dependencies = [
 "Bug Tracker" = "https://github.com/DavidRodriguezSoaresCUI/FFmpyg/issues"
 
 [tool.bumpver]
-current_version = "0.0.1"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "bump version {old_version} -> {new_version}"
 commit = true
@@ -36,5 +35,5 @@ push = true
 
 [tool.bumpver.file_patterns]
 "pyproject.toml" = [
-    'current_version = "{version}"',
+    'version = "{version}"',
 ]
