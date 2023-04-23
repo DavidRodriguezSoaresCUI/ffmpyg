@@ -117,7 +117,7 @@ class WorkingDirectory:
             self._file.stat().st_size,
         )
         for wd_path in self.generate_valid_paths(
-            get_temporary_dir_name(self._file), directory=True
+            get_temporary_dir_name(self._file), directory=True, root=self._cwd
         ):
             # Case : available path => create it and choose it
             if not wd_path.exists():

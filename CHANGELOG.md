@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 <!-- As much as possible use subsections: Added, Removed, Modified, BugFix -->
 
+## [0.0.6] - 23.04.2023
+
+### Modified
+
+- `Encoder.yaml_file_path`: now generates path to file in CWD
+
+### BugFix
+
+- Missing argument to `WorkingDirectory.generate_valid_paths` in `WorkingDirectory.__init__`
+
 ## [0.0.5] - 23.04.2023
 
 ### Modified

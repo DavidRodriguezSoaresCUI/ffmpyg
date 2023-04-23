@@ -130,12 +130,13 @@ class Encoder:
         _param = dict(self.parameters)
         _threads = _param.pop("threads", None)
         _spec = {"encoder": self.encoder, "parameters": _param, "threads": _threads}
-        _save_file = Encoder.yaml_file_path(name)
+        _save_file = Encoder.yaml_file_path(name).resolve()
         if _save_file.exists() and not overwrite:
             LOG.info("Did not overwrite '%s'", _save_file)
             return
-        with Encoder.yaml_file_path(name).open("w", encoding="utf8") as f:
+        with _save_file.open("w", encoding="utf8") as f:
             yaml.dump(_spec, f, encoding="utf8")
+        LOG.info("Saved encoder to '%s'", _save_file)
 
     @classmethod
     def load(cls, name: str, ffmpeg: Union[str, Path] = "ffmpeg") -> "Encoder":
@@ -149,7 +150,7 @@ class Encoder:
     @staticmethod
     def yaml_file_path(name: str) -> Path:
         """Returns save YAML file path with given name"""
-        return Path(__file__).with_suffix(f".{name}.yaml")
+        return Path(".") / f"Encoder.{name}.yaml"
 
     @staticmethod
     def available_configs() -> Dict[str, Path]:
