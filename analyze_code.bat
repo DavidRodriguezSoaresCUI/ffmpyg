@@ -3,7 +3,7 @@ SET report_file=analyze_code.report.txt
 
 setlocal enabledelayedexpansion enableextensions
 set FILE_LIST=
-for /R . %%F IN (*.py) do (
+for /R src %%F IN (*.py) do (
     set FILE_LIST=!FILE_LIST! "%%F"
 )
 set FILE_LIST=%FILE_LIST:~1%

@@ -133,3 +133,6 @@ dmypy.json
 
 # FFMPYG static code analysis
 analyze_code.report.txt
+
+docs/build
+docs/source
