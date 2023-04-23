@@ -220,10 +220,10 @@ class FilterComplexNode:
 
 def build_ffmpeg_command(
     inputs: List[FfmpegInput],
-    stream_mapping: Dict[Stream, FutureStream],
-    output: Union[str, Path],
     ffmpeg: Union[str, Path] = "ffmpeg",
     options: Optional[FfmpegOptions] = None,
+    output: Optional[Union[str, Path]] = None,
+    stream_mapping: Optional[Dict[Stream, FutureStream]] = None,
     filter_complex: Optional[FilterComplexNode] = None,
     extra: Optional[list] = None,
 ) -> Tuple[Command, Optional[FutureMediaFile]]:
@@ -231,10 +231,10 @@ def build_ffmpeg_command(
     Returns command and output file as FutureMediaFile
 
     `ffmpeg` : executable as callable in a terminal
-    `options` : (optional) "global" FFMPEG parameters
-    `stream_mapping` : (optional) input-output stream mapping
     `inputs` : input files and closely related parameters
+    `options` : (optional) "global" FFMPEG parameters
     `output` : (optional) output file path
+    `stream_mapping` : (optional) input-output stream mapping
     `filter_complex` : (optional) filter_complex
     `extra` : (optional) additional parameters
     """
@@ -250,7 +250,7 @@ def build_ffmpeg_command(
     # Compute mapping
     if stream_mapping is not None:
         in_stream_sorted_by_out_stream_idx = sorted(
-            stream_mapping.keys(), key=lambda in_stream: stream_mapping[in_stream].idx
+            stream_mapping.keys(), key=lambda in_stream: stream_mapping[in_stream].idx  # type: ignore[index]
         )
         for in_stream in in_stream_sorted_by_out_stream_idx:
             out_stream = stream_mapping[in_stream]
@@ -341,49 +341,3 @@ def build_mapping(
         )
 
     return mapping
-
-
-def main():
-    """main (test)"""
-    _media = MediaFile(Path("./test3.mkv"))
-    _input = FfmpegInput(_media)
-    _options = FfmpegOptions(hide_banner=True, y_overwrite=True)
-    CopyEncoder = Encoder("copy")
-    H264Encoder = Encoder("libx264")
-    H264Encoder.set_parameters(crf=23, preset="slow")
-    _rules = {
-        StreamCriteria(StreamType.VIDEO, None): H264Encoder,
-        StreamCriteria(None, None): CopyEncoder,
-    }
-    _mapping = build_mapping(_media, _rules)
-    ffmpeg_command, output_file = build_ffmpeg_command(
-        inputs=[_input],
-        stream_mapping=_mapping,
-        output=_input.path.with_suffix(".out.mkv"),
-        options=_options,
-    )
-
-    print(f"output_file={output_file}")
-    print(f"ffmpeg_command={ffmpeg_command.to_script()}")
-
-
-def main2():
-    """focus on FilterComplexNode"""
-    # f"[0:v:0]{drawText('reference')}[v0];[1:v:0]{drawText('encoded')}[v1];[v0][v1]vstack=inputs=2[out];[out]select='{low_frame_select}'"
-    _filter = FilterComplexNode(
-        inputs=[
-            FilterComplexNode(
-                inputs=["0:v:0"], complex_filter="{drawText('reference')}"
-            ),
-            FilterComplexNode(inputs=["1:v:0"], complex_filter="{drawText('encoded')}"),
-        ],
-        complex_filter="vstack=inputs=2",
-    ).add_filter("select='{low_frame_select}'")
-
-    filter_s = _filter.compute_filter()
-    print(filter_s)
-
-
-if __name__ == "__main__":
-    main2()
-    print("END OF PROGRAM")

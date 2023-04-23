@@ -14,7 +14,6 @@ from .utils import assertTrue
 
 FFMPEG_VERSION = re.compile(r"ffmpeg version (\S+) Copyright \(c\) \d{4}\-(\d{4})")
 FFMPEG_FEATURE = re.compile(r"--enable-(\S+)")
-FFMPEG_FEATURE_VMAF = "libvmaf"
 LOG = logging.getLogger(__file__)
 
 
@@ -53,8 +52,3 @@ def assert_ffmpeg_supports_feature(ffmpeg: Union[str, Path], feature: str) -> No
         ffmpeg,
         feature,
     )
-
-
-def assert_ffmpeg_supports_vmaf(ffmpeg: Union[str, Path]) -> None:
-    """Raises exception on FFmpeg not being callable or not having VMAF support"""
-    assert_ffmpeg_supports_feature(ffmpeg, FFMPEG_FEATURE_VMAF)

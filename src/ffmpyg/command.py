@@ -5,7 +5,7 @@ from os import PathLike
 from subprocess import PIPE, Popen
 from typing import Any, Dict, List
 
-from .utils import ensureQuoted
+from .utils import ensureQuoted, assertTrue
 
 
 LOG = logging.getLogger(__file__)
@@ -22,8 +22,7 @@ class Command:
 
     def __ensure_cmd_set(self) -> None:
         """Raises ValueError on command not set"""
-        if self._cmd is None:
-            raise ValueError("Command not set")
+        assertTrue(self._cmd is not None, "Command not set")
 
     def execute(self) -> Dict[str, str]:
         """Passes command to subprocess.Popen, retrieves stdout/stderr and performs

@@ -12,13 +12,11 @@ FFMPEG flag spec:
  .....S = Lossless compression
 """
 
+import re
 from collections import defaultdict
 from pathlib import Path
-import re
-import sys
 from typing import Any, Dict, List, Optional, Union
 
-import yaml
 from .command import Command
 from .enums import StreamType
 from .utils import assertTrue
@@ -196,22 +194,3 @@ def read_encoder_parameters(
         raise ValueError(f"line '{line}' couldn't be parsed !")
 
     return {"capabilities": capabilities, "type": stream_type, "options": options}
-
-
-def main() -> None:
-    """Writes spec file <encoder>.yaml"""
-    nb_arguments = len(sys.argv)
-    assertTrue(
-        nb_arguments in range(2, 4),
-        "Incorrect number of arguments: call with `python spec_converter.py <encoder> [<ffmpeg>]`",
-    )
-    encoder = sys.argv[1]
-    ffmpeg = sys.argv[2] if nb_arguments == 3 else "ffmpeg"
-    spec = read_encoder_parameters(encoder, ffmpeg, type_as_str=True)
-    with Path(f"./{encoder}.yaml").open("w", encoding="utf8") as f:
-        yaml.dump(spec, f, encoding="utf8")
-
-
-if __name__ == "__main__":
-    main()
-    print("END OF PROGRAM")

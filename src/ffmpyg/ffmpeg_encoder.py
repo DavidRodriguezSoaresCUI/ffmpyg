@@ -193,18 +193,3 @@ class Encoder:
             if v:
                 command.append(v)
         return command
-
-
-def main() -> None:
-    """main"""
-    ffmpeg_supported_encoders("ffmpeg")
-    _encoder = Encoder("libx264", threads=12)
-    _encoder.set_parameters(crf=24, preset="slow")
-    _encoder.save("x264-slow-crf24", overwrite=True)
-    _copy = Encoder.load("x264-slow-crf24")
-    print(f"ori={_encoder.to_command_parts()}\ncopy={_copy.to_command_parts()}")
-
-
-if __name__ == "__main__":
-    main()
-    print("END OF PROGRAM")
