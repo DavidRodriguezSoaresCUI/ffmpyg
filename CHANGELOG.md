@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 <!-- As much as possible use subsections: Added, Removed, Modified, BugFix -->
 
+## [0.0.4] - 23.04.2023
+
+### BugFix
+
+- Import `get_temporary_dir_name` from `DRSlib.hash` (see `DRSlib 0.7.1`)
+
 ## [0.0.3] - 23.04.2023
 
 ### Added
