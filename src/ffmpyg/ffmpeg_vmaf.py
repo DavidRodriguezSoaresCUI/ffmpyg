@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Dict, List, Union
 
 import numpy as np
-from DRSlib.utils import get_temporary_dir_name
+from DRSlib.hash import get_temporary_dir_name
 from matplotlib import pyplot as plt
 
 from .enums import FfprobeInfoKey, StreamType
