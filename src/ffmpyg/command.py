@@ -5,7 +5,9 @@ from os import PathLike
 from subprocess import PIPE, Popen
 from typing import Any, Dict, List
 
-from .utils import ensureQuoted, assertTrue
+from DRSlib.utils import assertTrue
+
+from .utils import ensureQuoted
 
 
 LOG = logging.getLogger(__file__)

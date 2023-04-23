@@ -14,6 +14,7 @@ from typing import Dict, List, Union
 
 import numpy as np
 from DRSlib.hash import get_temporary_dir_name
+from DRSlib.utils import assertTrue
 from matplotlib import pyplot as plt
 
 from .enums import FfprobeInfoKey, StreamType
@@ -25,7 +26,6 @@ from .ffmpeg_command import (
     build_ffmpeg_command,
 )
 from .ffmpeg_lib import assert_ffmpeg_supports_feature
-from .utils import assertTrue
 from .virtualfs import WorkingDirectory
 
 LOG = logging.getLogger(__file__)

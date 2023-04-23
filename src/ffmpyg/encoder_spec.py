@@ -17,9 +17,10 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
+from DRSlib.utils import assertTrue
+
 from .command import Command
 from .enums import StreamType
-from .utils import assertTrue
 
 ENCODER_LINE = re.compile(r"\s+([AVS])[ADEILSV\.]{5} (\S+).*")
 ENCODER_GENERAL_CAPABILITIES = re.compile(r"General capabilities: (.*)")

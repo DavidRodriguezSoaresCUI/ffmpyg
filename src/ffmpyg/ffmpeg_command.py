@@ -7,6 +7,8 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
+from DRSlib.utils import assertTrue
+
 from .command import Command
 from .exceptions import FilterComputationFailed
 from .ffile import (
@@ -19,7 +21,7 @@ from .ffile import (
     StreamType,
 )
 from .ffmpeg_encoder import Encoder
-from .utils import assertTrue, random_words
+from .utils import random_words
 
 LOG = logging.getLogger(__file__)
 

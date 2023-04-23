@@ -11,8 +11,7 @@ from pathlib import Path
 from typing import Generator, List, Optional, Union
 
 from DRSlib.hash import get_temporary_dir_name
-
-from .utils import assertTrue
+from DRSlib.utils import assertTrue
 
 
 class Node:

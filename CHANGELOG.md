@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 <!-- As much as possible use subsections: Added, Removed, Modified, BugFix -->
 
+## [0.0.5] - 23.04.2023
+
+### Modified
+
+- Switched to `DRSlib` implementation of methods `assertTrue`, `choose_from_list`, `user_input`, `dict_difference` and `flatten_dict_join`
+
 ## [0.0.4] - 23.04.2023
 
 ### BugFix

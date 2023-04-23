@@ -9,8 +9,9 @@ import re
 from pathlib import Path
 from typing import Dict, List, Union
 
+from DRSlib.utils import assertTrue
+
 from .command import Command
-from .utils import assertTrue
 
 FFMPEG_VERSION = re.compile(r"ffmpeg version (\S+) Copyright \(c\) \d{4}\-(\d{4})")
 FFMPEG_FEATURE = re.compile(r"--enable-(\S+)")
