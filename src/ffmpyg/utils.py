@@ -7,7 +7,6 @@ from typing import Any, Callable, Iterable, List, Optional, Set, Union
 
 
 DOUBLE_QUOTE = '"'
-LOG_FORMAT = "[%(levelname)s:%(funcName)s] %(message)s"
 
 
 def ensureQuoted(s: str) -> str:

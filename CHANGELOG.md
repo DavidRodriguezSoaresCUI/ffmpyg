@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 <!-- As much as possible use subsections: Added, Removed, Modified, BugFix -->
 
+## [0.0.7] - 29.04.2023
+
+### BugFix
+
+- Added missing dependencies
+- Various minor fixes
+
 ## [0.0.6] - 23.04.2023
 
 ### Modified

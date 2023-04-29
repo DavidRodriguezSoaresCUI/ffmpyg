@@ -155,7 +155,7 @@ class WorkingDirectory:
                 {
                     "path": self.target_file_path,
                     "size": self.target_file_size,
-                    "reserved": self._reserved,
+                    "reserved": list(self._reserved),
                 }
             )
         )

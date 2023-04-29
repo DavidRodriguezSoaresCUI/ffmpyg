@@ -60,8 +60,6 @@ class VmafReport:
         self.bad_frame_pattern = other.path.stem + "_frame%d.png"
         self.inputs = [FfmpegInput(i, fix_fps=24) for i in (reference, other)]
         self.vmaf_threads = threads if threads == 0 else max(1, threads - 1)
-        self._stats: Dict[int, float]
-        self._frames: np.ndarray
         self.working_directory = WorkingDirectory(reference.path)
         # checking video streams
         ref_v, other_v = reference.get_streams(
@@ -81,12 +79,14 @@ class VmafReport:
             other_v[0].get(FfprobeInfoKey.HEIGHT) != 1080
             or other_v[0].get(FfprobeInfoKey.WIDTH) != 1920
         )
+        # Lazy properties
+        self._stats: Dict[int, float]
+        self._frames: np.ndarray
 
     @property
     def stats(self) -> dict:
-        """Lazy property"""
-        if self._frames is None:
-            self.load_stats()
+        """Return overall statistics"""
+        self.load_stats()
         return {
             "min": np.min(self._frames),
             "max": np.max(self._frames),
@@ -96,9 +96,8 @@ class VmafReport:
 
     @property
     def frames(self) -> np.ndarray:
-        """Lazy property; Warning: should be considered as unsorted; only use for stats"""
-        if self._frames is None:
-            self.load_stats()
+        """Warning: should be considered as unsorted; only use for stats"""
+        self.load_stats()
         return self._frames
 
     def __str__(self) -> str:
@@ -119,6 +118,9 @@ class VmafReport:
 
     def load_stats(self, compatibility_mode: bool = False) -> None:
         """Execute and parse command, then load stats"""
+        if hasattr(self, "_frames"):
+            return
+
         stat_file = self.stat_file_path
         if not (stat_file.exists() and stat_file.is_file()):
             # Compute VMAF stats

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "FFmpyg_DavidRodriguezSoaresCUI"
-version = "0.0.6"
+version = "0.0.7"
 authors = [
   { name="DavidRodriguezSoaresCUI", email="fireblaze904+FFmpyg@gmail.com" },
 ]
@@ -19,7 +19,9 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-
+  matplotlib
+  numpy
+  DRSlib-DavidRodriguezSoaresCUI>=0.7.3
 ]
 
 [project.urls]

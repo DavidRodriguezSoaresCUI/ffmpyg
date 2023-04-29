@@ -120,7 +120,7 @@ class Encoder:
             "Save encoder configuration with name (leve blank to skip)",
             accepted=lambda _: True,
         ).strip()
-        if len(_encoder_save_name):
+        if len(_encoder_save_name) > 0:
             res.save(_encoder_save_name, overwrite=True)
 
         return res
@@ -143,8 +143,9 @@ class Encoder:
         """Load from YAML file"""
         with Encoder.yaml_file_path(name).open("r", encoding="utf8") as f:
             _spec = yaml.safe_load(f)
-            _encoder = Encoder(_spec["encoder"], ffmpeg, _spec["threads"])
-            _encoder.set_parameters(**_spec["parameters"])
+            _encoder = Encoder(_spec["encoder"], ffmpeg, _spec.get("threads"))
+            if "parameters" in _spec:
+                _encoder.set_parameters(**_spec["parameters"])
             return _encoder
 
     @staticmethod
